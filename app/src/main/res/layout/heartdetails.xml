@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardioconstlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:onClick="swapView"
+    tools:context=".HomeActivity">
+
+    <ImageView
+        android:id="@+id/cardioimage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/cardiodetailtopjpg"
+        app:layout_constraintDimensionRatio="16:9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/cardiotitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cardioimage"
+        android:layout_marginTop="10dp"
+        android:text="Cardiovascular"
+        android:textColor="@color/black"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/cardioimage"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/cardioinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="The cardiovascular, or circulatory, system supplies the body with blood. It consists of the heart, arteries, veins, and capillaries."
+        android:textSize="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/cardiotitle"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="10dp" />
+
+    <TextView
+        android:id="@+id/cardiod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Diseases and conditions that affect the heart :"
+        android:textSize="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/cardioinfo"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="10dp" />
+
+    <TextView
+        android:id="@+id/cardiod1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="- Angina, chest pain due to decreased blood flow"
+        android:textSize="18dp"
+        app:layout_constraintTop_toBottomOf="@+id/cardiod"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="10dp" />
+
+    <TextView
+        android:id="@+id/cardiod2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="- Arrhythmia, irregular heartbeat"
+        android:textSize="18dp"
+        app:layout_constraintTop_toBottomOf="@+id/cardiod1"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="10dp" />
+
+    <TextView
+        android:id="@+id/cardiod3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="- Heart attack"
+        android:textSize="18dp"
+        app:layout_constraintTop_toBottomOf="@+id/cardiod2"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="10dp" />
+
+    <TextView
+        android:id="@+id/cardiod4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="- Coronary artery, affects the arteries that feed heart muscle"
+        android:textSize="18dp"
+        app:layout_constraintTop_toBottomOf="@+id/cardiod3"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="10dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
