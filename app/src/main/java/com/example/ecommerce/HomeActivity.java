@@ -1,17 +1,13 @@
 package com.example.ecommerce;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.transition.TransitionManager;
 import android.view.View;
-import android.widget.Button;
+
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -21,10 +17,6 @@ public class HomeActivity extends AppCompatActivity {
     private ImageView digestIcon, DigestoryButton;
     private ImageView integumIcon, IntegumentaryButton;
 
-    private RelativeLayout layout;
-
-    private ConstraintSet constraintSetNew = new ConstraintSet();
-    private boolean altLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,25 +38,103 @@ public class HomeActivity extends AppCompatActivity {
         integumIcon = (ImageView) findViewById(R.id.Integum);
         IntegumentaryButton = (ImageView) findViewById(R.id.IntegumentaryImg);
 
-        layout = findViewById(R.id.categorylayout);
-        constraintSetNew.clone(this,R.layout.heartdetails);
-
+        // Icons - On Click initiate the Home Activity (Display the categories details)
         heartIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, DetailsActivity.class);
+                intent.putExtra("position",1);
                 startActivity(intent);
 
             }
         });
 
+        neuroIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, DetailsActivity.class);
+                intent.putExtra("position",2);
+                startActivity(intent);
+
+            }
+        });
+
+        respIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, DetailsActivity.class);
+                intent.putExtra("position",3);
+                startActivity(intent);
+
+            }
+        });
+
+        digestIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, DetailsActivity.class);
+                intent.putExtra("position",4);
+                startActivity(intent);
+
+            }
+        });
+
+        integumIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, DetailsActivity.class);
+                intent.putExtra("position",5);
+                startActivity(intent);
+
+            }
+        });
+
+        // Category Buttons - On Click initiate the Home Activity (Display the categories symptoms)
         CardiovascularButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, QuestionsActivity.class);
+                intent.putExtra("position",1);
                 startActivity(intent);
             }
         });
+
+        NeurologicalButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, QuestionsActivity.class);
+                intent.putExtra("position",2);
+                startActivity(intent);
+            }
+        });
+
+        RespiratoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, QuestionsActivity.class);
+                intent.putExtra("position",3);
+                startActivity(intent);
+            }
+        });
+
+        DigestoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, QuestionsActivity.class);
+                intent.putExtra("position",4);
+                startActivity(intent);
+            }
+        });
+
+        IntegumentaryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, QuestionsActivity.class);
+                intent.putExtra("position",5);
+                startActivity(intent);
+            }
+        });
+
 
 
     }

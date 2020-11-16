@@ -54,14 +54,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        String UserPhoneKey = Paper.book().read(Prevalent.UserPhoneKey);
+        String UserUsernameKey = Paper.book().read(Prevalent.UserUsernameKey);
         String UserPasswordKey = Paper.book().read(Prevalent.UserPasswordKey);
         
-        if (UserPhoneKey != "" && UserPasswordKey != "")
+        if (UserUsernameKey != "" && UserPasswordKey != "")
         {
-            if (!TextUtils.isEmpty(UserPhoneKey) && !TextUtils.isEmpty(UserPasswordKey))
+            if (!TextUtils.isEmpty(UserUsernameKey) && !TextUtils.isEmpty(UserPasswordKey))
             {
-                AllowAccess(UserPhoneKey,UserPasswordKey);
+                AllowAccess(UserUsernameKey,UserPasswordKey);
 
                 loadingBar.setTitle("Already Login");
                 loadingBar.setMessage("Please wait");
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void AllowAccess(final String phone, final String password)
+    private void AllowAccess(final String username, final String password)
     {
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();
@@ -79,11 +79,11 @@ public class MainActivity extends AppCompatActivity {
         RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("Users").child(phone).exists())
+                if (dataSnapshot.child("Users").child(username).exists())
                 {
-                    Users usersData = dataSnapshot.child("Users").child(phone).getValue(Users.class);
+                    Users usersData = dataSnapshot.child("Users").child(username).getValue(Users.class);
 
-                    if (usersData.getPhone().equals(phone))
+                    if (usersData.getUsername().equals(username))
                     {
                         if (usersData.getPassword().equals(password))
                         {
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(MainActivity.this, "Account with this " + phone + " number do not exist", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Account with this " + username + " do not exist", Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
                     Toast.makeText(MainActivity.this, "Please create a new account ", Toast.LENGTH_SHORT).show();
                 }

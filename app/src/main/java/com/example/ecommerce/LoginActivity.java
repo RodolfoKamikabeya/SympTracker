@@ -26,7 +26,7 @@ import io.paperdb.Paper;
 
 public class LoginActivity extends AppCompatActivity
 {
-    private EditText InputPhoneNumber, InputPassword;
+    private EditText InputUsername, InputPassword;
     private Button LoginButton;
     private ProgressDialog loadingBar;
     private TextView AdminLink, NotAdminLink;
@@ -41,9 +41,8 @@ public class LoginActivity extends AppCompatActivity
 
         LoginButton =(Button) findViewById(R.id.login_btn);
         InputPassword =(EditText) findViewById(R.id.login_password_input);
-        InputPhoneNumber =(EditText) findViewById(R.id.login_phone_number_input);
-        AdminLink =(TextView) findViewById(R.id.admin_panel_link);
-        NotAdminLink=(TextView) findViewById(R.id.not_admin_panel_link);
+        InputUsername =(EditText) findViewById(R.id.login_username_input);
+
         loadingBar = new ProgressDialog(this);
 
         chkBoxRememberMer = (com.rey.material.widget.CheckBox) findViewById(R.id.remember_me_chkb);
@@ -57,33 +56,15 @@ public class LoginActivity extends AppCompatActivity
             }
         });
 
-        AdminLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LoginButton.setText("Login Admin");
-                AdminLink.setVisibility(View.INVISIBLE);
-                NotAdminLink.setVisibility(View.VISIBLE);
-                parentDbName = "Admins";
-            }
-        });
 
-        NotAdminLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LoginButton.setText("Login");
-                AdminLink.setVisibility(View.VISIBLE);
-                NotAdminLink.setVisibility(View.INVISIBLE);
-                parentDbName = "Users";
-            }
-        });
     }
 
     private void LoginUser() {
-        String phone = InputPhoneNumber.getText().toString();
+        String username = InputUsername.getText().toString();
         String password = InputPassword.getText().toString();
 
-        if (TextUtils.isEmpty(phone)){
-            Toast.makeText(this, "Please write your phone number ", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(username)){
+            Toast.makeText(this, "Please write your username ", Toast.LENGTH_SHORT).show();
         }
         else if (TextUtils.isEmpty(password)){
             Toast.makeText(this, "Please write your password ", Toast.LENGTH_SHORT).show();
@@ -95,15 +76,15 @@ public class LoginActivity extends AppCompatActivity
                 loadingBar.setCanceledOnTouchOutside(false);
                 loadingBar.show();
                 
-                AllowAccessToAccount(phone,password);
+                AllowAccessToAccount(username,password);
             }
     }
 
-    private void AllowAccessToAccount(final String phone, final String password) {
+    private void AllowAccessToAccount(final String username, final String password) {
 
        if (chkBoxRememberMer.isChecked())
        {
-           Paper.book().write(Prevalent.UserPhoneKey, phone);
+           Paper.book().write(Prevalent.UserUsernameKey, username);
            Paper.book().write(Prevalent.UserPasswordKey,password);
        }
 
@@ -113,31 +94,22 @@ public class LoginActivity extends AppCompatActivity
         RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(parentDbName).child(phone).exists())
+                if (dataSnapshot.child(parentDbName).child(username).exists())
                 {
-                    Users usersData = dataSnapshot.child(parentDbName).child(phone).getValue(Users.class);
+                    Users usersData = dataSnapshot.child(parentDbName).child(username).getValue(Users.class);
 
-                    if (usersData.getPhone().equals(phone))
+                    if (usersData.getUsername().equals(username))
                     {
                         if (usersData.getPassword().equals(password))
                         {
-                            if (parentDbName.equals("Admins"))
-                            {
-                                Toast.makeText(LoginActivity.this, "Welcome Admin, you are logged in Successfully...", Toast.LENGTH_SHORT).show();
-                                loadingBar.dismiss();
 
-                                Intent intent = new Intent(LoginActivity.this, AdminCategoryActivity.class);
-                                startActivity(intent);
-                            }
-                            else if (parentDbName.equals("Users"))
-                            {
                                 Toast.makeText(LoginActivity.this, "Welcome User, you are logged in Successfully...", Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
 
                                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                                 startActivity(intent);
                             }
-                        }
+
                         else {
                             loadingBar.dismiss();
                             Toast.makeText(LoginActivity.this, "Password is wrong ", Toast.LENGTH_SHORT).show();
@@ -147,7 +119,7 @@ public class LoginActivity extends AppCompatActivity
                 }
                 else
                 {
-                    Toast.makeText(LoginActivity.this, "Account with this " + phone + " number do not exist", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Account with this " + username + " do not exist", Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
                     Toast.makeText(LoginActivity.this, "Please create a new account ", Toast.LENGTH_SHORT).show();
                 }

@@ -27,7 +27,7 @@ import java.util.HashMap;
 public class RegisterActivity extends AppCompatActivity {
 
     private Button CreateAccountButton;
-    private EditText InputName, InputPhoneNumber, InputPassword;
+    private EditText InputName, InputBirthday, InputPassword, InputLocation, InputGender, InputUsername;
     private ProgressDialog loadingBar;
 
     @Override
@@ -36,9 +36,12 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         CreateAccountButton =(Button) findViewById(R.id.register_btn);
+        InputUsername =(EditText) findViewById(R.id.register_username_login);
         InputName =(EditText) findViewById(R.id.register_username_input);
         InputPassword =(EditText) findViewById(R.id.register_password_input);
-        InputPhoneNumber =(EditText) findViewById(R.id.register_phone_number_input);
+        InputBirthday =(EditText) findViewById(R.id.register_birthday_input);
+        InputLocation=(EditText) findViewById(R.id.register_location_input);
+        InputGender =(EditText) findViewById(R.id.register_gender_input);
         loadingBar = new ProgressDialog(this);
 
         CreateAccountButton.setOnClickListener(new View.OnClickListener() {
@@ -50,18 +53,30 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void CreateAccount() {
+        String username = InputUsername.getText().toString();
         String name = InputName.getText().toString();
-        String phone = InputPhoneNumber.getText().toString();
+        String birthday = InputBirthday.getText().toString();
         String password = InputPassword.getText().toString();
+        String location = InputLocation.getText().toString();
+        String gender = InputGender.getText().toString();
 
         if (TextUtils.isEmpty(name)){
             Toast.makeText(this, "Please write your name ", Toast.LENGTH_SHORT).show();
         }
-        else if (TextUtils.isEmpty(phone)){
+        else if (TextUtils.isEmpty(birthday)){
             Toast.makeText(this, "Please write your phone number ", Toast.LENGTH_SHORT).show();
         }
         else if (TextUtils.isEmpty(password)){
             Toast.makeText(this, "Please write your password ", Toast.LENGTH_SHORT).show();
+        }
+        else if (TextUtils.isEmpty(location)){
+            Toast.makeText(this, "Please write your location ", Toast.LENGTH_SHORT).show();
+        }
+        else if (TextUtils.isEmpty(gender)){
+            Toast.makeText(this, "Please write your gender ", Toast.LENGTH_SHORT).show();
+        }
+        else if (TextUtils.isEmpty(username)){
+            Toast.makeText(this, "Please write your gender ", Toast.LENGTH_SHORT).show();
         }
         else {
             loadingBar.setTitle("Create Account");
@@ -69,28 +84,32 @@ public class RegisterActivity extends AppCompatActivity {
             loadingBar.setCanceledOnTouchOutside(false);
             loadingBar.show();
 
-            ValidatephoneNumber(name,phone,password);
+            ValidateCredentials(username,name, password, birthday, location, gender);
 
         }
 
     }
 
-    private void ValidatephoneNumber(final String name, final String phone, final String password) {
+    private void ValidateCredentials(final String username, final String name, final String password, final String birthday, final String location, final String gender) {
 
+        //Set the value in the Firebase database
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();
 
         RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (!(dataSnapshot.child("Users").child(phone).exists()))
+                if (!(dataSnapshot.child("Users").child(username).exists()))
                 {
                     HashMap<String,Object> userdataMap = new HashMap<>();
-                    userdataMap.put("phone",phone);
+                    userdataMap.put("username",username);
                     userdataMap.put("password",password);
                     userdataMap.put("name",name);
+                    userdataMap.put("birthday",birthday);
+                    userdataMap.put("location",location);
+                    userdataMap.put("gender",gender);
 
-                    RootRef.child("Users").child(phone).updateChildren(userdataMap)
+                    RootRef.child("Users").child(username).updateChildren(userdataMap)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task)
@@ -110,9 +129,9 @@ public class RegisterActivity extends AppCompatActivity {
                             });
                 }
                 else {
-                    Toast.makeText(RegisterActivity.this, "This " + phone + "already exist", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "This " + username + " already exist", Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
-                    Toast.makeText(RegisterActivity.this, "Please try again using another phone number", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Please try again using another username", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                     startActivity(intent);
                 }

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/neuroconstlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeActivity">
+
+    <ImageView
+        android:id="@+id/neuroimage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/neurodetail"
+        app:layout_constraintDimensionRatio="16:9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/neurotitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/neuroimage"
+        android:layout_marginTop="10dp"
+        android:text="Neurological"
+        android:textColor="@color/black"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/neuroimage"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/neuroinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Neurological disorders are diseases that affect the brain and the central and autonomic nervous systems. "
+        android:textSize="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/neurotitle"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="10dp" />
+
+    <TextView
+        android:id="@+id/neurod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Physical Symptoms of Neurological Problems :"
+        android:textSize="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/neuroinfo"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="10dp" />
+
+    <TextView
+        android:id="@+id/neurod1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="- Muscle weakness"
+        android:textSize="18dp"
+        app:layout_constraintTop_toBottomOf="@+id/neurod"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="10dp" />
+
+    <TextView
+        android:id="@+id/neurod2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="- Partial or complete paralysis"
+        android:textSize="18dp"
+        app:layout_constraintTop_toBottomOf="@+id/neurod1"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="10dp" />
+
+    <TextView
+        android:id="@+id/neurod3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="- Loss of sensation"
+        android:textSize="18dp"
+        app:layout_constraintTop_toBottomOf="@+id/neurod2"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="10dp" />
+
+    <TextView
+        android:id="@+id/neurod4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="- Unexplained pain"
+        android:textSize="18dp"
+        app:layout_constraintTop_toBottomOf="@+id/neurod3"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="10dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

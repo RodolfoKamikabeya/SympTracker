@@ -2,16 +2,16 @@ package com.example.ecommerce.Model;
 
 public class Users
 {
-    private String name, phone, password;
+    private String name, username, password;
 
     public  Users()
     {
 
     }
 
-    public Users(String name, String phone, String password) {
+    public Users(String name, String username, String password) {
         this.name = name;
-        this.phone = phone;
+        this.username = username;
         this.password = password;
     }
 
@@ -19,8 +19,8 @@ public class Users
         return name;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getUsername() {
+        return username;
     }
 
     public String getPassword() {
