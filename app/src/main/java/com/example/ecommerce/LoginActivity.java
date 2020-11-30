@@ -29,7 +29,6 @@ public class LoginActivity extends AppCompatActivity
     private EditText InputUsername, InputPassword;
     private Button LoginButton;
     private ProgressDialog loadingBar;
-    private TextView AdminLink, NotAdminLink;
 
     private String parentDbName = "Users";
     private com.rey.material.widget.CheckBox chkBoxRememberMer;
@@ -58,7 +57,7 @@ public class LoginActivity extends AppCompatActivity
 
 
     }
-
+    //Ask the user to insert their credentials
     private void LoginUser() {
         String username = InputUsername.getText().toString();
         String password = InputPassword.getText().toString();
@@ -80,6 +79,7 @@ public class LoginActivity extends AppCompatActivity
             }
     }
 
+    //Check the user access on our database
     private void AllowAccessToAccount(final String username, final String password) {
 
        if (chkBoxRememberMer.isChecked())
@@ -88,6 +88,7 @@ public class LoginActivity extends AppCompatActivity
            Paper.book().write(Prevalent.UserPasswordKey,password);
        }
 
+       // Access the database and verify if the User's Username already exist in our database
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();
 
@@ -106,7 +107,7 @@ public class LoginActivity extends AppCompatActivity
                                 Toast.makeText(LoginActivity.this, "Welcome User, you are logged in Successfully...", Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
 
-                                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, FollowupActivity.class);
                                 startActivity(intent);
                             }
 

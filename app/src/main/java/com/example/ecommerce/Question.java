@@ -10,8 +10,8 @@ public class Question {
         this.question = question;
         this.optionA = optionA;
         this.optionB = optionB;
-        OptionC = optionC;
-        OptionD = optionD;
+        this.OptionC = optionC;
+        this.OptionD = optionD;
     }
 
     public String getQuestion() {
@@ -33,6 +33,7 @@ public class Question {
     public String getOptionD() {
         return OptionD;
     }
+
     public int getCategory() {
         return category;
     }

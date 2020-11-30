@@ -1,12 +1,20 @@
 package com.example.ecommerce;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +24,7 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
     private TextView question;
     private Button option1, option2, option3,option4;
     private List<Question> questionList;
-
+    DatabaseReference reff;
 
 
     @Override
@@ -74,39 +82,123 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
     // Select the options according to selected category
     private void getQuestionsList(int categoryNum)
         {
-        questionList = new ArrayList<>();
+            //create a new empty array to store the data
+            questionList = new ArrayList<>();
+
+            // Access the database system in the Symptoms Node
+            reff = FirebaseDatabase.getInstance().getReference().child("Symptoms");
         switch (categoryNum) {
 
             case 1:
-                questionList.add(new Question("Cardiovascular","Chest pain","Shortness of Breath","Fatigue","Dizziness"));
+                // retrieve the data from Cardiovascular node
+               reff = reff.child("Cardiovascular");
+               reff.addValueEventListener(new ValueEventListener() {
+                    @Override
+                   public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        String category = "Cardiovascular";
+                        String symptoms1=dataSnapshot.child("symptoms1").getValue().toString();
+                        String symptoms2=dataSnapshot.child("symptoms2").getValue().toString();
+                        String symptoms3=dataSnapshot.child("symptoms3").getValue().toString();
+                        String symptoms4=dataSnapshot.child("symptoms4").getValue().toString();
+                        setQuestion(category,symptoms1,symptoms2,symptoms3,symptoms4);
+
+                    }
+                   @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) { }
+               });
+
                 break;
             case 2:
-                questionList.add(new Question("Neurological","Muscle weakness","Paralysis","Slurred speech","Blurry Vision"));
+                // retrieve the data from Neurological node
+                reff = reff.child("Neurological");
+                reff.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        String category = "Neurological";
+                        String symptoms1=dataSnapshot.child("symptoms1").getValue().toString();
+                        String symptoms2=dataSnapshot.child("symptoms2").getValue().toString();
+                        String symptoms3=dataSnapshot.child("symptoms3").getValue().toString();
+                        String symptoms4=dataSnapshot.child("symptoms4").getValue().toString();
+                        setQuestion(category,symptoms1,symptoms2,symptoms3,symptoms4);
+
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) { }
+                });
                 break;
             case 3:
-                questionList.add(new Question("Respiratory","Difficulty Breathing","Fever","Couching","Chest Pain"));
+                // retrieve the data from Respiratory node
+                reff = reff.child("Respiratory");
+                reff.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        String category = "Respiratory";
+                        String symptoms1=dataSnapshot.child("symptoms1").getValue().toString();
+                        String symptoms2=dataSnapshot.child("symptoms2").getValue().toString();
+                        String symptoms3=dataSnapshot.child("symptoms3").getValue().toString();
+                        String symptoms4=dataSnapshot.child("symptoms4").getValue().toString();
+                        setQuestion(category,symptoms1,symptoms2,symptoms3,symptoms4);
+
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) { }
+                });
                 break;
             case 4:
-                questionList.add(new Question("Digestive","Gas","Diarrhea","Vomiting","Abdominal Pain"));
+                // retrieve the data from Digestive node
+                reff = reff.child("Digestive");
+                reff.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        String category = "Digestive";
+                        String symptoms1=dataSnapshot.child("symptoms1").getValue().toString();
+                        String symptoms2=dataSnapshot.child("symptoms2").getValue().toString();
+                        String symptoms3=dataSnapshot.child("symptoms3").getValue().toString();
+                        String symptoms4=dataSnapshot.child("symptoms4").getValue().toString();
+                        setQuestion(category,symptoms1,symptoms2,symptoms3,symptoms4);
+
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) { }
+                });
                 break;
             case 5:
-                questionList.add(new Question("Intergumentary","Fragile Skin","Thickened skin","Dental problems","Difficulty swallowing"));
+                // retrieve the data from Intergumentary node
+                reff = reff.child("Intergumentary");
+                reff.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        String category = "Intergumentary";
+                        String symptoms1=dataSnapshot.child("symptoms1").getValue().toString();
+                        String symptoms2=dataSnapshot.child("symptoms2").getValue().toString();
+                        String symptoms3=dataSnapshot.child("symptoms3").getValue().toString();
+                        String symptoms4=dataSnapshot.child("symptoms4").getValue().toString();
+                        setQuestion(category,symptoms1,symptoms2,symptoms3,symptoms4);
+
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) { }
+                });
                 break;
 
             }
 
-            setQuestion();
+
         }
 
     // Return the question data and populate our layout
-    private void setQuestion()
+    private void setQuestion(String category, String symptoms1,String symptoms2,String symptoms3,String symptoms4)
         {
-        question.setText(questionList.get(0).getQuestion());
-        option1.setText(questionList.get(0).getOptionA());
-        option2.setText(questionList.get(0).getOptionB());
-        option3.setText(questionList.get(0).getOptionC());
-        option4.setText(questionList.get(0).getOptionD());
-
+                        question.setText(category);
+                        option1.setText(symptoms1);
+                        option2.setText(symptoms2);
+                        option3.setText(symptoms3);
+                        option4.setText(symptoms4);
         }
 
      // Used to identify which symptoms was selected

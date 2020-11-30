@@ -95,12 +95,10 @@ public class ratingActivity extends AppCompatActivity {
                 }
                 Toast.makeText(ratingActivity.this,message,Toast.LENGTH_SHORT).show();
 
-
             }
         });
 
-
-
+        //After click on rate button, populate the rating function
         rateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,11 +119,13 @@ public class ratingActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                    //Check the user answer for question (symptoms) and rate
                     HashMap<String,Object> userdataMap = new HashMap<>();
                     userdataMap.put("question",rateQuestion);
                     userdataMap.put("rating",myRating);
 
-                    RootRef.child("Users").child(rateQuestion).updateChildren(userdataMap)
+                    //Create a Node called HistorySymptoms on Firebase and Store the user question and rating
+                    RootRef.child("HistorySymptoms").child(rateQuestion).updateChildren(userdataMap)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task)
