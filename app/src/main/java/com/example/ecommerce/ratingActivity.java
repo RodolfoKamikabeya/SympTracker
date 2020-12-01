@@ -22,7 +22,7 @@ import java.util.HashMap;
 
 public class ratingActivity extends AppCompatActivity {
 
-    Button rateButton;
+    Button rateButton, submitButton;
     RatingBar ratingStars;
 
     int myRating =0;
@@ -34,37 +34,46 @@ public class ratingActivity extends AppCompatActivity {
 
         rateButton = findViewById(R.id.ratebutton);
         ratingStars = findViewById(R.id.ratingBar);
+        submitButton = findViewById(R.id.submitRating);
 
         // Intent to identify which question will be stored in the database
         int rate = 0;
+        String symptoms1 = null,symptoms2 = null, symptoms3 = null, symptoms4 = null;
+        String answer=null;
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         if(extras != null){
-            rate = extras.getInt("rate"); }
+            rate = extras.getInt("rate");
+            symptoms1=extras.getString("symptoms1");
+            symptoms2=extras.getString("symptoms2");
+            symptoms3=extras.getString("symptoms3");
+            symptoms4=extras.getString("symptoms4");}
         String rateQuestion = null;
         switch  (rate) {
 
             case 1 :
-                rateQuestion = "Question 1";
+                rateQuestion = symptoms1;
+                answer = "Symptom 1";
                 break;
             case 2:
-                rateQuestion = "Question 2";
+                rateQuestion = symptoms2;
+                answer = "Symptom 2";
                 break;
             case 3 :
-                rateQuestion = "Question 3";
+                rateQuestion = symptoms3;
+                answer = "Symptom 3";
                 break;
             case 4:
-                rateQuestion = "Question 4";
-                break;
-            case 5 :
-                rateQuestion = "Question 5";
+                rateQuestion = symptoms4;
+                answer = "Symptom 4";
                 break;
 
         }
 
         // Changing rate class, toast a message according to the rate description
         final String finalRateQuestion = rateQuestion;
+        final String finalAnswer = answer;
 
         ratingStars.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -103,13 +112,21 @@ public class ratingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(ratingActivity.this,String.valueOf(myRating),Toast.LENGTH_SHORT).show();
-                rating(finalRateQuestion, myRating);
+                rating(finalRateQuestion, myRating, finalAnswer);
             }
         });
 
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ratingActivity.this, PersonalQuestion.class);
+                startActivity(intent);
+                ratingActivity.this.finish();
+            }
+        });
     }
 
-    private void rating(final String rateQuestion, final int myRating) {
+    private void rating(final String rateQuestion, final int myRating, final String answer) {
 
         // Access the database and store user rating system
         final DatabaseReference RootRef;
@@ -121,11 +138,11 @@ public class ratingActivity extends AppCompatActivity {
 
                     //Check the user answer for question (symptoms) and rate
                     HashMap<String,Object> userdataMap = new HashMap<>();
-                    userdataMap.put("question",rateQuestion);
+                    userdataMap.put("Symptoms",rateQuestion);
                     userdataMap.put("rating",myRating);
 
                     //Create a Node called HistorySymptoms on Firebase and Store the user question and rating
-                    RootRef.child("HistorySymptoms").child(rateQuestion).updateChildren(userdataMap)
+                    RootRef.child("HistorySymptoms").child(answer).updateChildren(userdataMap)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task)
@@ -133,8 +150,6 @@ public class ratingActivity extends AppCompatActivity {
                                     if (task.isSuccessful())
                                     {
                                         Toast.makeText(ratingActivity.this, "Your rate was recorded", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(ratingActivity.this, HomeActivity.class);
-                                        startActivity(intent);
                                     }
                                     else
                                     {

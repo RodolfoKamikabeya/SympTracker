@@ -177,5 +177,18 @@
             android:textSize="25dp"
             />
 
+
     </LinearLayout>
+
+    <Button
+        android:id="@+id/submitRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:background="@drawable/buttons"
+        android:layout_below="@id/linear_rating6"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="300dp"
+        android:gravity="center"
+        android:textColor="@android:color/white"/>
 </RelativeLayout>

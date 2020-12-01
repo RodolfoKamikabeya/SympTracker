@@ -96,6 +96,7 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(HomeActivity.this, QuestionsActivity.class);
                 intent.putExtra("position",1);
                 startActivity(intent);
+                HomeActivity.this.finish();
             }
         });
 
@@ -105,6 +106,7 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(HomeActivity.this, QuestionsActivity.class);
                 intent.putExtra("position",2);
                 startActivity(intent);
+                HomeActivity.this.finish();
             }
         });
 
@@ -114,6 +116,7 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(HomeActivity.this, QuestionsActivity.class);
                 intent.putExtra("position",3);
                 startActivity(intent);
+                HomeActivity.this.finish();
             }
         });
 
@@ -123,6 +126,7 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(HomeActivity.this, QuestionsActivity.class);
                 intent.putExtra("position",4);
                 startActivity(intent);
+                HomeActivity.this.finish();
             }
         });
 
@@ -132,12 +136,11 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(HomeActivity.this, QuestionsActivity.class);
                 intent.putExtra("position",5);
                 startActivity(intent);
+                HomeActivity.this.finish();
             }
         });
 
 
-
     }
-
 
 }

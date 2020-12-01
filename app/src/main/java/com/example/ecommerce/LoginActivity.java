@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.ecommerce.Model.Users;
 import com.example.ecommerce.Prevalent.Prevalent;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,6 +33,7 @@ public class LoginActivity extends AppCompatActivity
 
     private String parentDbName = "Users";
     private com.rey.material.widget.CheckBox chkBoxRememberMer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +111,7 @@ public class LoginActivity extends AppCompatActivity
 
                                 Intent intent = new Intent(LoginActivity.this, FollowupActivity.class);
                                 startActivity(intent);
+                                LoginActivity.this.finish();
                             }
 
                         else {

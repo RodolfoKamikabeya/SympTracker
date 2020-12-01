@@ -36,11 +36,13 @@ public class FollowupActivity extends AppCompatActivity {
                     case R.id.radio_one:
                         Intent intent = new Intent(FollowupActivity.this, FeelingbActivity.class);
                         startActivity(intent);
+
                         break;
 
                     case R.id.radio_two:
                         Intent intent2 = new Intent(FollowupActivity.this, HomeActivity.class);
                         startActivity(intent2);
+                        FollowupActivity.this.finish();
                         break;
                 }
 
