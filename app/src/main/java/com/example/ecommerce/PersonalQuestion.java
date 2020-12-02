@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,6 +34,13 @@ public class PersonalQuestion extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_question);
 
+        String category = null;
+
+
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if(extras != null){
+            category=extras.getString("category");}
 
         SymptomTreNo = (EditText) findViewById(R.id.treat_answer);
         FamilyHis = (EditText) findViewById(R.id.family_answer);
@@ -41,16 +49,17 @@ public class PersonalQuestion extends AppCompatActivity {
         button = findViewById(R.id.button);
 
 
+        final String finalCategory = category;
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CreatePersonalData();
+                CreatePersonalData(finalCategory);
             }
         });
     }
 
     //receive and populate the users personal questions answers
-    private void CreatePersonalData() {
+    private void CreatePersonalData(String category) {
         String Symptom = SymptomTreNo.getText().toString();
         String FamilyAnswer = FamilyHis.getText().toString();
         String before_y_n = yes_no.getText().toString();
@@ -67,12 +76,12 @@ public class PersonalQuestion extends AppCompatActivity {
             Toast.makeText(this, "Please write your answer ", Toast.LENGTH_SHORT).show();
         }
         else {
-            PersonalData(Symptom, before_y_n, FamilyAnswer,LastN);
+            PersonalData(Symptom, before_y_n, FamilyAnswer,LastN,category);
         }
     }
 
     // Access the database and store user personal question system
-    private void PersonalData(final String Symptom, final String before_y_n, final String FamilyAnswer, final String LastName) {
+    private void PersonalData(final String Symptom, final String before_y_n, final String FamilyAnswer, final String LastName, final String category) {
 
 
       // Access the database and store user personal question system
@@ -99,8 +108,10 @@ public class PersonalQuestion extends AppCompatActivity {
                                 {
                                     Toast.makeText(PersonalQuestion.this, "Your personal question was recorded", Toast.LENGTH_SHORT).show();
 
-                                   // Intent intent = new Intent(PersonalQuestion.this, HomeActivity.class);
-                                   //startActivity(intent);
+                                    Intent intent = new Intent(PersonalQuestion.this, Diagnosis.class);
+                                    intent.putExtra("category",category);
+                                    Log.d("tag","category PQ " + category);
+                                   startActivity(intent);
                                 }
                                 else
                                 {

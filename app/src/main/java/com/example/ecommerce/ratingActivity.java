@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
@@ -38,7 +39,7 @@ public class ratingActivity extends AppCompatActivity {
 
         // Intent to identify which question will be stored in the database
         int rate = 0;
-        String symptoms1 = null,symptoms2 = null, symptoms3 = null, symptoms4 = null;
+        String symptoms1 = null,symptoms2 = null, symptoms3 = null, symptoms4 = null,category = null;
         String answer=null;
 
         Intent intent = getIntent();
@@ -48,7 +49,8 @@ public class ratingActivity extends AppCompatActivity {
             symptoms1=extras.getString("symptoms1");
             symptoms2=extras.getString("symptoms2");
             symptoms3=extras.getString("symptoms3");
-            symptoms4=extras.getString("symptoms4");}
+            symptoms4=extras.getString("symptoms4");
+            category=extras.getString("category");}
         String rateQuestion = null;
         switch  (rate) {
 
@@ -113,15 +115,19 @@ public class ratingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(ratingActivity.this,String.valueOf(myRating),Toast.LENGTH_SHORT).show();
                 rating(finalRateQuestion, myRating, finalAnswer);
+
             }
         });
 
+        final String finalCategory = category;
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ratingActivity.this, PersonalQuestion.class);
+                intent.putExtra("category", finalCategory);
+                Log.d("tag","category " + finalCategory);
                 startActivity(intent);
-                ratingActivity.this.finish();
+
             }
         });
     }
@@ -150,6 +156,7 @@ public class ratingActivity extends AppCompatActivity {
                                     if (task.isSuccessful())
                                     {
                                         Toast.makeText(ratingActivity.this, "Your rate was recorded", Toast.LENGTH_SHORT).show();
+
                                     }
                                     else
                                     {
@@ -158,7 +165,6 @@ public class ratingActivity extends AppCompatActivity {
                                 }
                             });
                 }
-
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

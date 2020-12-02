@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Diagnosis">
+
+    <TextView
+        android:id="@+id/txtTitle16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/txtTypeSymptom14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtTitle16"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="-139dp"
+        android:layout_marginTop="2dp" />
+
+    <TextView
+        android:id="@+id/tvOverview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtTypeSymptom14"
+        android:layout_alignLeft="@id/txtTypeSymptom14"
+        android:layout_marginLeft="-126dp"
+        android:layout_marginTop="9dp"
+        android:text="Overview"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtOverview16"
+        android:layout_width="348dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/tvOverview"
+        android:layout_alignLeft="@id/tvOverview"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="4dp"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tvCommon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtOverview16"
+        android:layout_alignLeft="@id/txtOverview16"
+        android:layout_marginLeft="31dp"
+        android:layout_marginTop="14dp"
+        android:text="How Common"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtHcommon10"
+        android:layout_width="267dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvCommon"
+        android:layout_alignLeft="@id/tvCommon"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="6dp"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/txtSymptomView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtHcommon10"
+        android:layout_alignLeft="@id/txtHcommon10"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="10dp"
+        android:text="Symptoms"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtSymptoms16"
+        android:layout_width="277dp"
+        android:layout_height="98dp"
+        android:layout_below="@id/txtSymptomView"
+        android:layout_alignLeft="@id/txtSymptomView"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="5dp"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/txtTreatment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtSymptoms16"
+        android:layout_alignLeft="@id/txtSymptoms16"
+        android:layout_marginLeft="-5dp"
+        android:layout_marginTop="9dp"
+        android:text="Treatments"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtTreatment15"
+        android:layout_width="286dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtTreatment"
+        android:layout_alignLeft="@id/txtTreatment"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="0dp"
+        android:text=""
+        android:textSize="12sp" />
+
+<!--
+    <TextView
+        android:id="@+id/txtRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtTreatment"
+        android:layout_alignLeft="@id/txtTreatment"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="19dp"
+        android:text="Rating"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtRate"
+        android:layout_width="286dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtRating"
+        android:layout_alignLeft="@id/txtRating"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="0dp"
+        android:inputType="number"
+        android:text=""
+        android:textSize="12sp" />
+-->
+
+    <!--<Button
+        android:id="@+id/btnQuickoverview1"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtRate"
+        android:layout_alignRight="@id/txtRate"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="472dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginRight="53dp"
+        android:background="#8BC34A"
+        android:backgroundTint="#7CB342"
+        android:scrollbarAlwaysDrawHorizontalTrack="true"
+        android:text="@string/btnQuickoverview1"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="22sp"
+        android:textStyle="bold|italic" />-->
+
+
+</RelativeLayout>

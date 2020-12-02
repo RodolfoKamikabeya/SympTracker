@@ -206,11 +206,12 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
 
         int selectedOption =0;
-        String sym1,sym2,sym3,sym4;
+        String sym1,sym2,sym3,sym4,category;
         sym1 =option1.getText().toString();
         sym2 =option2.getText().toString();
         sym3 =option3.getText().toString();
         sym4 =option4.getText().toString();
+        category=question.getText().toString();
 
         switch (v.getId()) {
             case R.id.Option1 :
@@ -227,11 +228,11 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
                 selectedOption=4;
                 break;
         }
-        rateSymptoms(selectedOption,sym1,sym2,sym3,sym4);
+        rateSymptoms(selectedOption,sym1,sym2,sym3,sym4,category);
     }
 
     // Call and Populate the rating Activity
-    private void rateSymptoms(int selectedOption, String symptoms1, String symptoms2, String symptoms3, String symptoms4) {
+    private void rateSymptoms(int selectedOption, String symptoms1, String symptoms2, String symptoms3, String symptoms4,String category) {
 
                 Intent intent = new Intent(QuestionsActivity.this, ratingActivity.class);
                 intent.putExtra("rate",selectedOption);
@@ -239,8 +240,9 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
                 intent.putExtra("symptoms2",symptoms2);
                 intent.putExtra("symptoms3",symptoms3);
                 intent.putExtra("symptoms4",symptoms4);
+                intent.putExtra("category",category);
                 startActivity(intent);
-                QuestionsActivity.this.finish();
+
 
 
     }
