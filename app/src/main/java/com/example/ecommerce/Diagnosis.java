@@ -15,6 +15,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 public class Diagnosis extends AppCompatActivity {
 
 
@@ -54,8 +57,7 @@ public class Diagnosis extends AppCompatActivity {
         else {
             diagnosiscat=5;
         }
-        Log.d("tag","category Diag " + category);
-        Log.d("tag","category PQ " + diagnosiscat);
+
 
         //as = Acute Sinusitis
         txtTitle16 = (TextView) findViewById(R.id.txtTitle16);
@@ -69,13 +71,174 @@ public class Diagnosis extends AppCompatActivity {
         TextView tTreatments = (TextView) findViewById(R.id.txtTreatment);
         txtTreatment15 = (TextView) findViewById(R.id.txtTreatment15);
 
+        getRating(diagnosiscat);
 
+
+    }
+
+
+
+    private void getRating(final int diagnosiscat) {
+        reff = FirebaseDatabase.getInstance().getReference().child("HistorySymptoms");
+
+        reff.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                collectRatingValue((Map<String,Object>) dataSnapshot.getValue(),diagnosiscat);
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
+        });
+
+
+    }
+
+    private void collectRatingValue(Map<String, Object> value, int diagnosiscat) {
+        ArrayList<Long> ratingValue = new ArrayList<>();
+        int rating=0;
+        String Ratingvalue = "HighestRated";
+        //iterate through each user, ignoring their UID
+        for (Map.Entry<String, Object> entry : value.entrySet()){
+
+            //Get user map
+            Map singleUser = (Map) entry.getValue();
+            //Get phone field and append to list
+            ratingValue.add((Long) singleUser.get("rating"));
+            Log.d("tag", "cat ollectRatingValue: " +ratingValue.toString());
+        }
+       for(int i=0; i<ratingValue.size()-1;i++)
+            for(int k=i+1;k<ratingValue.size();k++)
+                if(ratingValue.get(i)> ratingValue.get(k)) {
+                    rating = i+1;
+                    Log.d("tag", "cat egory array " + rating);
+                }
+
+
+        switch (rating){
+
+            case 1:
+                getSymptomsNode1(Ratingvalue,diagnosiscat);
+
+                break;
+            case 2:
+                getSymptomsNode2(Ratingvalue,diagnosiscat);
+                break;
+
+            case 3:
+                getSymptomsNode3(Ratingvalue,diagnosiscat);
+                break;
+            case 4:
+                getSymptomsNode4(Ratingvalue,diagnosiscat);
+                break;
+
+        }
+
+    }
+
+    private void getSymptomsNode1(final String Ratingvalue, final int diagnosiscat) {
+        reff = FirebaseDatabase.getInstance().getReference().child("HistorySymptoms");
+        reff = reff.child("Symptom 1");
+
+        reff.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                String symptom = dataSnapshot.child("Symptoms").getValue().toString();
+                Log.d("tag", "category symptom " + symptom + Ratingvalue);
+                getDiagnosis(symptom, Ratingvalue, diagnosiscat);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    private void getSymptomsNode2(final String Ratingvalue, final int diagnosiscat) {
+        reff = FirebaseDatabase.getInstance().getReference().child("HistorySymptoms");
+        reff = reff.child("Symptom 2");
+
+        reff.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                String symptom = dataSnapshot.child("Symptoms").getValue().toString();
+                Log.d("tag", "category symptom " + symptom + Ratingvalue);
+                getDiagnosis(symptom, Ratingvalue, diagnosiscat);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    private void getSymptomsNode3(final String Ratingvalue, final int diagnosiscat) {
+        reff = FirebaseDatabase.getInstance().getReference().child("HistorySymptoms");
+        reff = reff.child("Symptom 3");
+
+        reff.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                String symptom = dataSnapshot.child("Symptoms").getValue().toString();
+                Log.d("tag", "category symptom " + symptom + Ratingvalue);
+                getDiagnosis(symptom, Ratingvalue, diagnosiscat);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    private void getSymptomsNode4(final String Ratingvalue, final int diagnosiscat) {
+        reff = FirebaseDatabase.getInstance().getReference().child("HistorySymptoms");
+        reff = reff.child("Symptom 4");
+
+        reff.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                String symptom = dataSnapshot.child("Symptoms").getValue().toString();
+                Log.d("tag", "category symptom " + symptom + Ratingvalue);
+                getDiagnosis(symptom, Ratingvalue, diagnosiscat);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+
+
+    private void getDiagnosis(String symptoms, String rating, int diagnosiscat) {
         reff = FirebaseDatabase.getInstance().getReference().child("Diagnosis");
         switch (diagnosiscat) {
 
             case 1:
                 // retrieve the data from Cardiovascular node
-                reff = reff.child("HB");
+                if(symptoms.equals("Chest pain") && rating.equals("HighestRated")){
+                    reff = reff.child("HB");
+                }
+                else if (symptoms.equals("Shortness of Breath") && rating.equals("HighestRated")) {
+                    reff = reff.child("Atrial Flutter");
+                }
+                else if (symptoms.equals("Fatigue") && rating.equals("HighestRated")) {
+                    reff = reff.child("Atrial Fibrillation");
+                }
+                else {
+                    reff = reff.child("Rest");
+                }
+
                 reff.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -102,8 +265,22 @@ public class Diagnosis extends AppCompatActivity {
 
                 break;
             case 2:
-                // retrieve the data from Cardiovascular node
-                reff = reff.child("Acute Sinusitis");
+
+                // retrieve the data from Neurological node
+                if(symptoms.equals("Muscle weakness") && rating.equals("HighestRated")){
+                    reff = reff.child("Motion Sickness");
+                }
+                else if (symptoms.equals("Paralysis") && rating.equals("HighestRated")) {
+                    reff = reff.child("Paralysis");
+                }
+                else if (symptoms.equals("Slurred speech") && rating.equals("HighestRated")) {
+                    reff = reff.child("Motion Sickness");
+                }
+                else {
+                    reff = reff.child("Rest");
+                }
+
+                // retrieve the data from Neurological node
                 reff.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -129,8 +306,21 @@ public class Diagnosis extends AppCompatActivity {
 
                 break;
             case 3:
+                // retrieve the data from Respiratory node
+                if(symptoms.equals("Difficulty breathing") && rating.equals("HighestRated")){
+                    reff = reff.child("Coronavirus");
+                }
+                else if (symptoms.equals("Fever") && rating.equals("HighestRated")) {
+                    reff = reff.child("Chronic Sinusitis");
+                }
+                else if (symptoms.equals("Couching") && rating.equals("HighestRated")) {
+                    reff = reff.child("Bronchitis");
+                }
+                else if (symptoms.equals("Chest Pain") && rating.equals("HighestRated")){
+                    reff = reff.child("Common Cold");
+                }
+
                 // retrieve the data from Cardiovascular node
-                reff = reff.child("Coronavirus");
                 reff.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -153,11 +343,21 @@ public class Diagnosis extends AppCompatActivity {
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                     }
                 });
-
                 break;
             case 4:
-                // retrieve the data from Cardiovascular node
-                reff = reff.child("Gas");
+                // retrieve the data from Digestive node
+                if(symptoms.equals("Gas") && rating.equals("HighestRated")){
+                    reff = reff.child("Gas");
+                }
+                else if (symptoms.equals("Diarrhea") && rating.equals("HighestRated")) {
+                    reff = reff.child("Irritable Bowel Syndrome");
+                }
+                else if (symptoms.equals("Vomiting") && rating.equals("HighestRated")) {
+                    reff = reff.child("Viral Gastroenteritis");
+                }
+                else {
+                    reff = reff.child("Lactose Intolerance");
+                }
                 reff.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -183,8 +383,19 @@ public class Diagnosis extends AppCompatActivity {
 
                 break;
             case 5:
-                // retrieve the data from Cardiovascular node
-                reff = reff.child("Cold Sores");
+                // retrieve the data from Intergumentary node
+                if(symptoms.equals("Fragile Skin") && rating.equals("HighestRated")){
+                    reff = reff.child("Low Blood Sugar");
+                }
+                else if (symptoms.equals("Thickened Skin") && rating.equals("HighestRated")) {
+                    reff = reff.child("Vitamin B12 Deficiency");
+                }
+                else if (symptoms.equals("Dental problem") && rating.equals("HighestRated")) {
+                    reff = reff.child("Cold Sores");
+                }
+                else {
+                    reff = reff.child("Drug Allergy");
+                }
                 reff.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -213,3 +424,4 @@ public class Diagnosis extends AppCompatActivity {
     }
 
 }
+
